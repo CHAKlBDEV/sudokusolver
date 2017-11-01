@@ -93,17 +93,21 @@ public class Solver {
             }
     }
 
-    public void solve() {
+    public boolean solve() {
         while (!isCompleted()) {
             it++;
 
             eliminate();
             checkForSingleCases();
+            if(it > 2000000){
+                return false;
+            }
 
         }
         System.out.print("\nTotal iterations: ");
         System.out.print(it);
         System.out.println();
+        return true;
     }
 
     public ArrayList<Integer> retrievePossibleCases(int rid, int cid) {

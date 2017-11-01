@@ -115,6 +115,7 @@ public class GUI extends javax.swing.JFrame {
         clearBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        debug = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sudoku Solver v1.0");
@@ -371,16 +372,19 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(solveBtn)
-                    .addComponent(clearBtn))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(34, 34, 34))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(debug))
+                    .addComponent(solveBtn)
+                    .addComponent(clearBtn))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -393,7 +397,8 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(solveBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(clearBtn)
-                .addGap(29, 29, 29))
+                .addGap(15, 15, 15)
+                .addComponent(debug))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -713,22 +718,26 @@ public class GUI extends javax.swing.JFrame {
         Solver s = new Solver();
         s.fillBoard(b);
         s.printGrid();
-        s.solve();
-        JTextField[][] grid =  {
-        { c00, c01, c02, c03, c04, c05, c06, c07, c08},
-        { c10, c11, c12, c13, c14, c15, c16, c17, c18},
-        { c20, c21, c22, c23, c24, c25, c26, c27, c28},
-        { c30, c31, c32, c33, c34, c35, c36, c37, c38},
-        { c40, c41, c42, c43, c44, c45, c46, c47, c48},
-        { c50, c51, c52, c53, c54, c55, c56, c57, c58},
-        { c60, c61, c62, c63, c64, c65, c66, c67, c68},
-        { c70, c71, c72, c73, c74, c75, c76, c77, c78},
-        { c80, c81, c82, c83, c84, c85, c86, c87, c88}
-        };
-        for(int i = 0; i < 9; i++){
-           for(int j = 0; j < 9; j++){
-               grid[i][j].setText(String.valueOf(s.board.grid[i][j].values.get(0)));
-           }
+        if(s.solve() == true){
+            JTextField[][] grid =  {
+            { c00, c01, c02, c03, c04, c05, c06, c07, c08},
+            { c10, c11, c12, c13, c14, c15, c16, c17, c18},
+            { c20, c21, c22, c23, c24, c25, c26, c27, c28},
+            { c30, c31, c32, c33, c34, c35, c36, c37, c38},
+            { c40, c41, c42, c43, c44, c45, c46, c47, c48},
+            { c50, c51, c52, c53, c54, c55, c56, c57, c58},
+            { c60, c61, c62, c63, c64, c65, c66, c67, c68},
+            { c70, c71, c72, c73, c74, c75, c76, c77, c78},
+            { c80, c81, c82, c83, c84, c85, c86, c87, c88}
+            };
+            for(int i = 0; i < 9; i++){
+               for(int j = 0; j < 9; j++){
+                   grid[i][j].setText(String.valueOf(s.board.grid[i][j].values.get(0)));
+               }
+            }
+            debug.setText("Solved");
+        } else {
+            debug.setText("Can't solve");
         }
         
     }//GEN-LAST:event_solveBtnActionPerformed
@@ -878,6 +887,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField c87;
     private javax.swing.JTextField c88;
     private javax.swing.JButton clearBtn;
+    private javax.swing.JLabel debug;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
