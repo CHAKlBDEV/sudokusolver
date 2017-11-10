@@ -23,6 +23,7 @@ public class Solver {
         BLOCK, ROW, COLUMN
     };
     
+    //Gets value from the textview
     public static int g(JTextField j){
         if(j.getText().equals("")){
             return 0;
@@ -37,7 +38,8 @@ public class Solver {
     public void fillBoard(int[][] b) {
         board.fillGrid(b);
     }
-
+    
+    //Prints the puzzle to the console
     public void printGrid() {
         System.out.println(" _ _ _ _ _ _ _ _ _ ");
         for (Cell[] row : board.grid) {
@@ -55,7 +57,8 @@ public class Solver {
         System.out.println(" - - - - - - - - - ");
 
     }
-
+    
+    //Iterates through cells to eliminate impossible numbers
     private void eliminate() {
         for (int i = 0; i < 9; i++) {
             it++;
@@ -72,6 +75,11 @@ public class Solver {
         }
     }
     
+    /*
+    Iterates through cells and checks if there is a possible
+    number that exist once in the row, column and block 
+    respectively
+    */
     public void checkForSingleCases(){
         for (int i = 0; i < 9; i++) {
                 it++;
@@ -92,7 +100,8 @@ public class Solver {
 
             }
     }
-
+    
+    //Main method to solve the puzzle
     public boolean solve() {
         while (!isCompleted()) {
             it++;
@@ -109,7 +118,8 @@ public class Solver {
         System.out.println();
         return true;
     }
-
+    
+    //Returns a list of possible candidates
     public ArrayList<Integer> retrievePossibleCases(int rid, int cid) {
         ArrayList<Integer> possibleCases = new ArrayList<>();
         int[] ns = {1, 2, 3, 4, 5, 6, 7, 8, 9};
@@ -171,13 +181,19 @@ public class Solver {
         return possibleCases;
     }
 
+    //sets a unique value for a given cell and makes it constant
     public void setCellValueAndConstant(int rid, int cid, int val) {
         ArrayList<Integer> nl = new ArrayList();
         nl.add(val);
         board.grid[rid][cid].values = nl;
         board.grid[rid][cid].isConstant = true;
     }
-
+    
+    /*
+    Iterates through cells and checks if there is a possible
+    number that exist once in the row, column and block 
+    respectively
+    */
     public boolean checkSingleCases(int rid, int cid, TYPE t) {
         mainloop:
         for (int k = 0; k < board.grid[rid][cid].values.size(); k++) {
@@ -245,6 +261,7 @@ public class Solver {
         return false;
     }
 
+    //returns block id
     private int[] bid(int id) {
         for (int i[] : blocks) {
             it++;
@@ -254,7 +271,8 @@ public class Solver {
         }
         return null;
     }
-
+    
+    //checks if an array contains a given value
     private boolean contains(int[] array, int value) {
         for (int i : array) {
             it++;
@@ -265,6 +283,7 @@ public class Solver {
         return false;
     }
 
+    //returns true if all cells have a unique value and constant
     private boolean isCompleted() {
         for (Cell[] row : board.grid) {
             it++;
